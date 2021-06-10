@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Jellyfin_Music.Views.ItemsPage"
+             Title="{Binding Title}"
+             xmlns:local="clr-namespace:Jellyfin_Music.ViewModels"  
+             xmlns:model="clr-namespace:Jellyfin_Music.Models"  
+             x:Name="BrowseItemsPage">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Command="{Binding AddItemCommand}" />
+    </ContentPage.ToolbarItems>
+    <RefreshView x:DataType="local:ItemsViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+        <ScrollView>
+            <FlexLayout Direction="Row" Wrap="Wrap" x:Name="ItemsListView" BindableLayout.ItemsSource="{Binding Items}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="model:Item">
+                        <Grid Margin="5" WidthRequest="200" HeightRequest="250">
+                            <StackLayout>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer CommandParameter="{Binding Id}" Tapped="SelectItem" />
+                                </StackLayout.GestureRecognizers>
+                                <Image Source="{Binding Artwork}" WidthRequest="200" HeightRequest="200" />
+                                <Label Text="{Binding Text}" HorizontalOptions="Center" VerticalOptions="Center" />
+                            </StackLayout>
+                        </Grid>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </FlexLayout>
+        </ScrollView>
+    </RefreshView>
+</ContentPage>

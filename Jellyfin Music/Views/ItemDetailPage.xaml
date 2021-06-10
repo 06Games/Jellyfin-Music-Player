@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Jellyfin_Music.Views.ItemDetailPage"
+             xmlns:local="clr-namespace:Jellyfin_Music.ViewModels"
+             Title="{Binding Title}">
+
+    <StackLayout Spacing="20" Padding="15" BindingContext="{Binding Album}" x:Name="PageContent">
+        <Grid BackgroundColor="#252525" Padding="5" Margin="0,0,25,0" ColumnSpacing="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Source="{Binding Artwork}"></Image>
+            <Label Grid.Column="1" Grid.Row="0" Text="{Binding Name}" FontSize="Medium" VerticalTextAlignment="End"/>
+            <Label Grid.Column="1" Grid.Row="1" Text="{Binding ArtistsString}" FontSize="Small"/>
+        </Grid>
+
+        <ListView ItemsSource="{Binding Tracks}" ItemTapped="PlayMusic">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="local:Track">
+                    <ViewCell>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="25"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Text="{Binding Number}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                            <Label Grid.Column="1" Grid.Row="0" Text="{Binding Name}" VerticalTextAlignment="End"/>
+                            <Label Grid.Column="1" Grid.Row="1" Text="{Binding ArtistsString}" TextColor="#ccc"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+
+</ContentPage>
